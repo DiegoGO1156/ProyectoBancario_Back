@@ -4,6 +4,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 
+import authRoutes from "../src/auth/authRoutes.js"
+
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}))
@@ -14,7 +16,7 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) =>{
-
+    app.use("/Valmeria_App/V1/Auth", authRoutes)
 }
 
 const conectDB = async() =>{
@@ -33,7 +35,7 @@ export const initServer = async() =>{
     try {
         middlewares(app)
         conectDB()
-        //routes(app)
+        routes(app)
         app.listen(Port)
         console.log(`SERVER INIT IN PORT ${Port}`)
     } catch (e) {
