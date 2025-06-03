@@ -1,5 +1,8 @@
 import { Router } from "express";
 import { login, register } from "./authController.js";
+import { dpiValidationMiddleware } from "../middlewares/validateDPI.js";
+import { registerValidator } from "../middlewares/validatorAuth.js";
+import { passwordValidatorMiddleware } from "../middlewares/validatorPasswords.js";
 
 const router = Router()
 
@@ -10,6 +13,9 @@ router.post(
 
 router.post(
     "/register",
+    dpiValidationMiddleware,
+    passwordValidatorMiddleware,
+    registerValidator,
     register
 )
 

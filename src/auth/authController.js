@@ -1,6 +1,8 @@
 import { generarJWT } from "../helpers/generateJWT.js";
 import User from "../users/user.model.js";
 import { hash, verify } from "argon2";
+import { validateDPI } from "../middlewares/validateDPI.js";
+import { validatePassword } from "../middlewares/validatorPasswords.js";
 
 export const login = async(req, res) =>{
     try {
@@ -46,9 +48,12 @@ export const register = async(req, res) =>{
     try {
         const {accountNumber, ...data} = req.body
 
-        const newAccountNumber = Math.floor(Math.random()*(99999 - 10000 + 10000)) + 10000
+        const newAccountNumber = Math.floor(Math.random()*(9999999999 - 1000000000 + 1000000000)) + 1000000000
+        validatePassword(data.password)
 
         const encryptPass = await hash(data.password)
+
+        validateDPI(data.dpi);
 
         const userData = await User.create({
             ...data,
