@@ -2,14 +2,16 @@ import User from "../users/user.model.js"
 
 ////////////////////////////////////////////////////////////////////////////// REGISTER ////////////////////////////////////////////////////////////////////////////////////
 export const emailUsed = async(email = "") =>{
-    const emailUsed = await User.findOne({email})
+    const emailLower = email.toLowerCase()
+    const emailUsed = await User.findOne({email: emailLower})
     if(emailUsed){
         throw new Error (`The email ${email} has already been registered`)
     }
 }
 
 export const usedUsername = async(username = "") =>{
-    const usernameUsed = await User.findOne({username})
+    const usernameLower = username.toLowerCase()
+    const usernameUsed = await User.findOne({username: usernameLower})
     if(usernameUsed){
         throw new Error (`The username ${username} has already been registered`)
     }

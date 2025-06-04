@@ -47,7 +47,7 @@ export const initServer = async() =>{
 
 export const defaultAdmin = async() =>{
     try {
-        const Adminemail = "ADMINB@gmail.com"
+        const Adminemail = "adminb@gmail.com"
         const password = "ADMINB"
         const Adminusername = "ADMINB"
         
@@ -59,7 +59,7 @@ export const defaultAdmin = async() =>{
             const adminUser = new User({
                 name: "ADMINB",
                 username: Adminusername.toLowerCase(),
-                accountNumber: 1111111111,
+                accountNumber: 1,
                 email: Adminemail.toLowerCase(),
                 password: passwordEncrypt,
                 role: "ADMIN",
@@ -72,8 +72,7 @@ export const defaultAdmin = async() =>{
             })
             await adminUser.save()
             console.log("Administrador por defecto ha sido creado exitosamente!!!")
-        }
-        if(existAdmin){
+        }else{
             console.log("Ya se ha generado el Administrador")
         }
  
