@@ -3,9 +3,11 @@ import cors from "cors"
 import helmet from "helmet";
 import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
+import {hash} from "argon2"
 
 import authRoutes from "../src/auth/authRoutes.js"
 
+import User from "../src/users/user.model.js";
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}))
@@ -40,5 +42,42 @@ export const initServer = async() =>{
         console.log(`SERVER INIT IN PORT ${Port}`)
     } catch (e) {
         console.log(`SERVER FALIED INIT IN PORT ${Port}`)
+    }
+}
+
+export const defaultAdmin = async() =>{
+    try {
+        const Adminemail = "ADMINB@gmail.com"
+        const password = "ADMINB"
+        const Adminusername = "ADMINB"
+        
+        const existAdmin = await User.findOne({email: Adminemail})
+ 
+        if(!existAdmin){
+            const passwordEncrypt = await hash(password)
+ 
+            const adminUser = new User({
+                name: "ADMINB",
+                username: Adminusername.toLowerCase(),
+                accountNumber: 1111111111,
+                email: Adminemail.toLowerCase(),
+                password: passwordEncrypt,
+                role: "ADMIN",
+                address: "-----",
+                phone: 12345678,
+                companyName: "Valmeria",
+                income: 0,
+                statusAccount: "Active",
+                dpi: 111111122
+            })
+            await adminUser.save()
+            console.log("Administrador por defecto ha sido creado exitosamente!!!")
+        }
+        if(existAdmin){
+            console.log("Ya se ha generado el Administrador")
+        }
+ 
+    } catch (er) {
+        console.error("Error al crear el Administrador ", er)
     }
 }

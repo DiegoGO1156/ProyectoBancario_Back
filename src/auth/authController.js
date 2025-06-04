@@ -53,12 +53,17 @@ export const register = async(req, res) =>{
 
         const encryptPass = await hash(data.password)
 
+        const filterUserName = data.username.toLowerCase()
+        const filterEmail = data.email.toLowerCase()
+
         validateDPI(data.dpi);
 
         const userData = await User.create({
             ...data,
             accountNumber: newAccountNumber,
-            password: encryptPass
+            password: encryptPass,
+            usernamee: filterUserName,
+            emaile: filterEmail
         })
 
         return res.status(200).json({
