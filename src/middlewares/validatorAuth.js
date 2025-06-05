@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { validarCampos } from "./validarCampos.js"
-import { emailUsed, minincome, usedUsername } from "../helpers/db-Validator.js";
+import { emailUsed, minincome, pendingAccount, usedUsername } from "../helpers/db-Validator.js";
 
 export const registerValidator =[
     body("name", "The name is required").not().isEmpty(),
@@ -15,5 +15,13 @@ export const registerValidator =[
     body("companyName", "The company Name is required").not().isEmpty(),
     body("income", "The income is required").notEmpty(),
     body("income", "The income is required").custom(minincome),
+    validarCampos
+]
+
+export const loginValidator = [
+    body("email").optional().isEmail().withMessage("Ingresa una direccion de correo valida"),
+    body("email").optional().custom(pendingAccount),
+    body("username").optional().isString().withMessage("Ingrese un username valido"),
+    body("password", "The password must have at least 8 characters").isLength({min:8}),
     validarCampos
 ]

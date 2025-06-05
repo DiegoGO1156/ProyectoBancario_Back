@@ -20,7 +20,7 @@ export const login = async(req, res) =>{
         if(!validPass){
             return res.status(401).json({
                 success:false,
-                msg: "Contraseña incorrecta"
+                msg: "Incorrect password"
             })
         }
 
