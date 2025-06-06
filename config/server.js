@@ -8,6 +8,7 @@ import {hash} from "argon2"
 import authRoutes from "../src/auth/authRoutes.js";
 import brandRoutes from "../src/brands/brand.routes.js";
 import productRoutes from "../src/products/product.routes.js";
+import serviceRoutes from "../src/services/service.routes.js";
 
 import User from "../src/users/user.model.js";
 
@@ -23,6 +24,7 @@ const routes = (app) =>{
     app.use("/Valmeria_App/V1/Auth", authRoutes);
     app.use("/Valmeria_App/V1/Brands", brandRoutes);
     app.use("/Valmeria_App/V1/Products", productRoutes);
+    app.use("/Valmeria_App/V1/Services", serviceRoutes);
 }
 
 const conectDB = async() =>{
