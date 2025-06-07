@@ -27,7 +27,8 @@ export const minincome = async(income = "") =>{
 
 ////////////////////////////////////////////////////////////////////////////// LOGIN ////////////////////////////////////////////////////////////////////////////////////
 export const pendingAccount = async(email = "" )=>{
-    const isPending = await User.findOne({email})
+    const emailLower = email.toLowerCase()
+    const isPending = await User.findOne({email: emailLower})
     if(isPending.statusAccount === "Pending"){
         throw new Error (`Your account is still pending confirmation, please wait until it is enabled`)
     }
