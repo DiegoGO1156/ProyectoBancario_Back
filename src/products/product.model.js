@@ -11,6 +11,10 @@ const ProductSchema = new Schema({
     image: {
         type: String
     },
+    price:{
+        type: Number,
+        required: true
+    },
     brand: {
         type: Schema.Types.ObjectId,
         ref: 'brand',
