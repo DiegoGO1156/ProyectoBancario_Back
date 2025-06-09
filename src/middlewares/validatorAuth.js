@@ -1,6 +1,7 @@
 import { body } from "express-validator";
 import { validarCampos } from "./validarCampos.js"
 import { emailUsed, minincome, pendingAccount, usedUsername } from "../helpers/db-Validator.js";
+import User from "../users/user.model.js";
 
 export const registerValidator =[
     body("name", "The name is required").not().isEmpty(),
@@ -17,7 +18,6 @@ export const registerValidator =[
     body("income", "The income is required").custom(minincome),
     validarCampos
 ]
-
 export const loginValidator = [
     body("email").optional().isEmail().withMessage("Ingresa una direccion de correo valida"),
     body("email").optional().custom(pendingAccount),

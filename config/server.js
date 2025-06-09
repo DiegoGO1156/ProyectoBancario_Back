@@ -54,7 +54,7 @@ export const initServer = async() =>{
 export const defaultAdmin = async() =>{
     try {
         const Adminemail = "adminb@gmail.com"
-        const password = "ADMINB"
+        const password = "-ADMINB-"
         const Adminusername = "ADMINB"
         
         const existAdmin = await User.findOne({email: Adminemail})
