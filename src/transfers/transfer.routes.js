@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { check } from "express-validator"
 import { validarCampos } from "../middlewares/validarCampos.js"
-import {addTransfer, completeTransfer} from "../transfers/transfer.controller.js"
+import {addTransfer, completeTransfer, denyTransfer} from "../transfers/transfer.controller.js"
 
 const router = Router()
 
@@ -40,6 +40,7 @@ router.post(
 )
 
 router.get("/complete", completeTransfer)
+router.get("/deny", denyTransfer)
 // router.put(
 //     "/update-hotel/:id",
 //     [

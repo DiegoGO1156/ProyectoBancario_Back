@@ -47,7 +47,25 @@ export const addTransfer = async (req, res)=>{
         const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
         const senderUser = await User.findById(uid)
         const addresserUser = await User.findOne({accountNumber: accountNumberAddresser})
+        const date = new Date()
+        const dateToIzo = date.toISOString()
+        const currentDate = dateToIzo.replace('Z', '+00:00')
         console.log(addresserUser)
+
+        if(senderUser.income == 0){
+            return res.status(400).json({
+                success: false,
+                message: "You dont have any balance.",
+            })
+        }
+
+        if(( senderUser.income - parseFloat(amount)) < 0){
+            return res.status(400).json({
+                success: false,
+                message: "Amount overcame your balance.",
+            })
+        }
+
         const transfer = await Transfer.create({ 
             senderName: senderUser.name,
             addresserName: addresserUser.name,
@@ -57,6 +75,7 @@ export const addTransfer = async (req, res)=>{
             senderNumber: senderUser.accountNumber,
             addresserNumber: addresserUser.accountNumber,
             motive,
+            date: currentDate
         })
 
         const tokenEmail = jwt.sign(
@@ -74,9 +93,9 @@ export const addTransfer = async (req, res)=>{
           const { transferId } = jwt.verify(tokenEmail, process.env.SECRETOPRIVATEKEY)
           console.log(transferId)
 
-        const denyLink = `http://localhost:3000/Valmeria_App/V1/transfers/deny?token=${tokenEmail}`
+        const denyLink = `http://localhost:3000/Valmeria_App/V1/transfers/deny?tokenEmail=${tokenEmail}`
         
-        const completeLink = `http://localhost:3000/Valmeria_App/V1/transfers/complete?token=${tokenEmail}`
+        const completeLink = `http://localhost:3000/Valmeria_App/V1/transfers/complete?tokenEmail=${tokenEmail}`
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -151,26 +170,73 @@ export const completeTransfer = async (req, res)=>{
 
         const { email, number, amount, transferId } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
         const senderUser = await User.findOne({email})
-        const addresserUser = await User.findOne({number})
+        const addresserUser = await User.findOne({accountNumber:number})
         const date = new Date()
         const dateToIzo = date.toISOString()
         const currentDate = dateToIzo.replace('Z', '+00:00')
+        const currentTransfer = await Transfer.findById(transferId)
 
-        const transfer = await Transfer.findByIdAndUpdate(transferId,{ 
-            senderName: senderUser.name,
-            addresserName: addresserUser.name,
-            senderRef: senderUser.id,
-            addresserRef: addresserUser.id,
-            amount,
-            senderNumber: senderUser.accountNumber,
-            addresserNumber: addresserUser.accountNumber,
-            motive,
-            date: currentDate
+        if(currentTransfer.verification == true){
+            return res.status(200).json({
+                success: true,
+                message: "Transference already denied."
+            })
+        }
+        const transfer = await Transfer.findByIdAndUpdate(transferId,{
+            date: currentDate,
+            verification: true,
+            verificationEmail: true
         })
+
+        await User.findByIdAndUpdate(
+            senderUser.id,
+            {
+                income: senderUser.income - parseFloat(amount)
+            },
+            {new:true}
+        )
+
+        await User.findByIdAndUpdate(
+            addresserUser.id,
+            {
+                income: addresserUser.income + parseFloat(amount)
+            },
+            {new:true}
+        )
 
         return res.status(200).json({
             success: true,
             message: "Transfer Successfully made.",
+            transfer
+        })
+        
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            message: "Transfer creation failed",
+            error: e.message
+        })
+    }
+}
+
+export const denyTransfer = async (req, res)=>{
+    try {
+        const token = req.query.tokenEmail;
+    
+        if(!token){
+            return res.status(401).json({
+                msg: 'Token not found.'
+            })
+        }
+
+        const { transferId } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const transfer = await Transfer.findByIdAndUpdate(transferId,{
+            verification: true
+        })
+
+        return res.status(200).json({
+            success: true,
+            message: "Transfer Successfully denied.",
             transfer
         })
         
