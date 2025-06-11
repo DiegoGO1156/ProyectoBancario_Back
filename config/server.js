@@ -70,7 +70,8 @@ export const defaultAdmin = async() =>{
                 companyName: "Valmeria",
                 income: 0,
                 statusAccount: "Active",
-                dpi: 111111122
+                dpi: 111111122,
+                verification: true
             })
             await adminUser.save()
             console.log("Administrador por defecto ha sido creado exitosamente!!!")

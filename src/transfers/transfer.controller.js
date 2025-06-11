@@ -4,33 +4,6 @@ import User from "../users/user.model.js"
 import jwt from "jsonwebtoken"
 import nodemailer from 'nodemailer'
 
-// export const getHotels = async  (req = request, res = response) => {
-//     try {
-//         const {limit = 10, since = 0} = req.query
-//         const query = {state : true}
-
-//         const [total, hotels] = await Promise.all([
-//             Hotel.countDocuments(query),
-//             Hotel.find(query)
-//                 .skip(Number(since))
-//                 .limit(Number(limit))
-//         ])
-        
-//         res.status(200).json({
-//             succes: true,
-//             total,
-//             hotels
-//         })
-
-//     } catch (error) {
-//         res.status(500).json({
-//             success: false,
-//             msg:'Error obtaining hotels',
-//             error
-//         })
-//     }
-// }
-
 export const addTransfer = async (req, res)=>{
     try {
         const token = await req.header('x-token')
@@ -50,7 +23,37 @@ export const addTransfer = async (req, res)=>{
         const date = new Date()
         const dateToIzo = date.toISOString()
         const currentDate = dateToIzo.replace('Z', '+00:00')
-        console.log(addresserUser)
+
+        const transferences = await Transfer.find({senderRef: senderUser.id, verificationEmail: true, verification:true})
+        let currentTransferences = []
+        transferences.map(localTransfer =>{
+            let listData = localTransfer.date.slice(0, 10);
+            let currDate = currentDate.slice(0, 10);
+            if(listData == currDate){
+                currentTransferences.push(localTransfer)
+            }
+        })
+        let sum = 0
+        currentTransferences.map(localTransference=>{
+            sum = sum + localTransference.amount
+        })
+        console.log(sum)
+        if(senderUser.role == "ADMIN"){
+            return res.status(401).json({
+                msg: 'You must be an user to use this.'
+            })
+        }
+        if(addresserUser.role == "ADMIN"){
+            return res.status(401).json({
+                msg: 'You are trying to transfer to an admin.'
+            })
+        }
+
+        if(amount > 2000){
+            return res.status(401).json({
+                msg: 'You exceeded the limit per transaction (2000 GTQ)'
+            })
+        }
 
         if(senderUser.income == 0){
             return res.status(400).json({
@@ -83,7 +86,8 @@ export const addTransfer = async (req, res)=>{
               email: senderUser.email,
               number: accountNumberAddresser,
               amount: newAmount,
-              transferId : transfer.id
+              transferId : transfer.id,
+              userId: senderUser.id
             },
             process.env.SECRETOPRIVATEKEY,
             {
@@ -111,34 +115,47 @@ export const addTransfer = async (req, res)=>{
         await transporter.sendMail({
             from: 'no-reply@valmeria_app.com',
             to: senderUser.email,
-            subject: 'Completa la transferencia.',
+            subject: `Transferencia: ${newAmount} ${senderUser.divisas} a ${addresserUser.accountNumber}`,
             html: `
-            <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px;">
-            <h2>Completa la Transferencia Por Favor</h2>
-            <p>Completa tu transferencia acá.</p>
-            <br/>
-            <p>Verifica los datos antes de darle click al botón azul.</p>
-            <br/>
-            <p>Usuario a transferir:</p>
-            <br/>
-            <p>Nombre completo: ${addresserUser.name}</p>
-            <br/>
-            <p>Número de cuenta: ${addresserUser.accountNumber}</p>
-            <br/>
-            <p>Correo: ${addresserUser.email}</p>
-            <br/>
-            <p>Monto a transferir: ${newAmount} ${senderUser.divisas}</p>
-            <br/>
-            <a href="${completeLink}" style="padding: 10px 20px; background-color:rgb(0, 130, 236); color: white; text-decoration: none; border-radius: 5px;">Completar Transferencia</a>
-            <br/>
-            <br/>
-            <p>Si no has sido tu, presina el siguiente link, "Denegar".</p>
-            <br/>
-            <a href="${denyLink}" style="padding: 10px 20px; background-color:rgb(225, 28, 28); color: white; text-decoration: none; border-radius: 5px;">Denegar</a>
-            <br/>
-            <br/>
-            <p>Este enlace expirará en 1:30 minutos.</p>
-            <br>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #ffffff;">
+                <h2 style="color: #333333; text-align: center; margin-bottom: 20px;">Completa la Transferencia Por Favor</h2>
+                <p style="text-align: center; color: #555555; margin-bottom: 20px;">Completa tu transferencia acá.</p>
+                <p style="text-align: center; color: #555555; margin-bottom: 20px;">Verifica los datos antes de darle click al botón azul.</p>
+                    
+                <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+                    
+                <h3 style="color: #333333; text-align: center; margin-bottom: 15px;">Tu información:</h3>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <p style="margin: 5px 0; color: #555555;"><strong>Nombre completo:</strong> ${senderUser.name}</p>
+                    <p style="margin: 5px 0; color: #555555;"><strong>Número de cuenta:</strong> ${senderUser.accountNumber}</p>
+                    <p style="margin: 5px 0; color: #555555;"><strong>Correo:</strong> ${senderUser.email}</p>
+                </div>
+                    
+                <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+                    
+                <h3 style="color: #333333; text-align: center; margin-bottom: 15px;">Usuario a transferir:</h3>
+                <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <p style="margin: 5px 0; color: #555555;"><strong>Nombre completo:</strong> ${addresserUser.name}</p>
+                    <p style="margin: 5px 0; color: #555555;"><strong>Número de cuenta:</strong> ${addresserUser.accountNumber}</p>
+                    <p style="margin: 5px 0; color: #555555;"><strong>Correo:</strong> ${addresserUser.email}</p>
+                    <p style="margin: 5px 0; color: #555555;"><strong>Monto a transferir:</strong> ${newAmount} ${senderUser.divisas}</p>
+                </div>
+                    
+                <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+                    
+                <div style="text-align: center; margin-bottom: 10 px;">
+                    <a href="${completeLink}" target="_blank" style="display: inline-block; padding: 12px 25px; background-color: #0082ec; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-bottom: 10px;">Completar Transferencia</a>
+                </div>
+                    
+                <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 20px 0;">
+                    
+                <p style="text-align: center; color: #555555; margin-bottom: 20px;">Si no has sido tú, presiona el siguiente botón para denegar la transferencia.</p>
+                    
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <a href="${denyLink}" target="_blank" style="display: inline-block; padding: 12px 25px; background-color: #e11c1c; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Denegar</a>
+                </div>
+                    
+                <p style="text-align: center; color: #999999; font-size: 12px;">Este enlace expirará en 1:30 minutos.</p>
             </div>
             ` 
         })
@@ -146,7 +163,8 @@ export const addTransfer = async (req, res)=>{
         return res.status(200).json({
             success: true,
             message: "Transfer Successfully made.",
-            transfer
+            transfer,
+
         })
         
     } catch (e) {
@@ -168,7 +186,7 @@ export const completeTransfer = async (req, res)=>{
             })
         }
 
-        const { email, number, amount, transferId } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const { email, number, amount, transferId, userId } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
         const senderUser = await User.findOne({email})
         const addresserUser = await User.findOne({accountNumber:number})
         const date = new Date()
@@ -249,132 +267,79 @@ export const denyTransfer = async (req, res)=>{
     }
 }
 
-// export const updateHotel = async (req, res = response)=>{
-//     try {
-//         //const token = await req.header('x-token')
+export const getTransferencesByUser = async (req, res = response)=>{
+    try {
+        const token = await req.header('x-token')
 
-//         // if(!token){
-//         //     return res.status(401).json({
-//         //         msg: 'No hay token en la peticion'
-//         //     })
-//         // }
+        if(!token){
+            return res.status(401).json({
+                msg: 'Token not found.'
+            })
+        }
 
-//         //const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+        const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const { id } = req.params
 
-//         const data = req.body
-//         const { id } = req.params
+        const currentUser = await User.findById(uid)
 
-//         // if(user.role == "ADMIN_ROLE" || user.role == "OWNER_ROLE"){
-    
-//         const hotel = await Hotel.findByIdAndUpdate(id, { 
-//             name: data.name,
-//             address: data.address,
-//             category: data.category,
-//             roomsAvailable: data.roomsAvailable,
-//             amenities: data.amenities,
-//             priceEvent: data.priceEvent
-//         } , {new:true})
-//         return res.status(200).json({
-//             success: true,
-//             message: "Hotel updated successfully",
-//             hotel
-//         })
-//         // } else{
-//         //     return res.status(401).json({
-//         //         success: false,
-//         //         message: "You are not allowed to do this."
-//         //     })
-//         // }
-//     } catch (e) {
-//         console.log(e)
-//         return res.status(500).json({
-//             message: "Hotel update failed",
-//             error: e.message
-//         })
-//     }
-// }
+        if(currentUser.role == "USER"){
+            return res.status(401).json({
+                msg: 'You must be an admin to use this.'
+            })
+        }
 
-// export const getHotelById = async (req, res = response)=>{
-//     try {
-//         const { id } = req.params
-    
-//         const hotel = await Hotel.findById(id)
-//         return res.status(200).json({
-//             success: true,
-//             message: "Hotel found",
-//             hotel
-//         })
-//     } catch (e) {
-//         console.log(e)
-//         return res.status(500).json({
-//             message: "Hotel not found",
-//             error: e.message
-//         })
-//     }
-// }
+        const transferences = await Transfer.find({senderRef: id, verificationEmail: true, verification:true})
+            .skip(0)
+            .limit(5)
+        return res.status(200).json({
+            success: true,
+            message: "Transferences found successfully.",
+            transferences
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            message: "Transferences not found.",
+            error: e.message
+        })
+    }
+}
 
-// export const deleteHotel = async (req, res = response)=>{
-//     try {
-//         //const token = await req.header('x-token')
+export const getTransferences = async (req, res = response)=>{
+    try {
+        const token = await req.header('x-token')
 
-//         // if(!token){
-//         //     return res.status(401).json({
-//         //         msg: 'No hay token en la peticion'
-//         //     })
-//         // }
+        if(!token){
+            return res.status(401).json({
+                msg: 'Token not found.'
+            })
+        }
+        const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
 
-//         //const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+        const currentUser = await User.findById(uid)
 
-//         const data = req.body
-//         const { id } = req.params
+        if(currentUser.role == "ADMIN"){
+            return res.status(401).json({
+                msg: 'You must be an user to use this.'
+            })
+        }
+        let transferencesUser = []
+        const transferences = await Transfer.find({senderRef: uid, verificationEmail: true, verification:true})
+        transferences.map(localTransference =>{
+            let { senderName, senderRef, senderNumber, ...data } = localTransference._doc
+            transferencesUser.push(data)
+        })
+        return res.status(200).json({
+            success: true,
+            message: "Transferences found successfully.",
+            transferencesUser
+        })
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({
+            message: "Transferences not found.",
+            error: e.message
+        })
+    }
+}
 
-//         // if(user.role == "ADMIN_ROLE" || user.role == "OWNER_ROLE"){
-    
-//         const hotel = await Hotel.findByIdAndUpdate(id, { 
-//             state:false
-//         } , {new:true})
-//         return res.status(200).json({
-//             success: true,
-//             message: "Hotel deleted successfully",
-//             hotel
-//         })
-//         // } else{
-//         //     return res.status(401).json({
-//         //         success: false,
-//         //         message: "You are not allowed to do this."
-//         //     })
-//         // }
-//     } catch (e) {
-//         console.log(e)
-//         return res.status(500).json({
-//             message: "Hotel deletion failed",
-//             error: e.message
-//         })
-//     }
-// }
-
-// export const getHotelByName = async (req, res) => {
-//   try {
-//     const { name } = req.params;
-
-//     const hotel = await Hotel.findOne({ name });
-//     if (!hotel) {
-//       return res.status(404).json({ message: "Hotel not found" });
-//     }
-
-//     const rooms = await Room.find({ hotel: hotel._id });
-
-//     return res.status(200).json({
-//       success: true,
-//       message: "Hotel and rooms found",
-//       hotel,
-//       rooms,
-//     });
-//   } catch (e) {
-//     console.log(e);
-//     return res.status(500).json({
-//       message: "Error fetching hotel",
-//       error: e.message,
-//     });
-//   }
-// };
