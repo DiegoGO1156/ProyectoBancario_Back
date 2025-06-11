@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { listDataUser, updateDatauser, updatePassword } from "./userController.js";
+import { listDataUser, updateDatauser, updatePassword, listUsersPending, activeUsers, deleteRegisterUser, editBalanceUser } from "./userController.js";
 import { passwordValidatorMiddleware } from "../middlewares/validatorPasswords.js";
 import { valueJWT } from "../middlewares/valueJWT.js"
 
@@ -23,5 +23,27 @@ router.put(
     passwordValidatorMiddleware,
     updatePassword
 )
+
+//////////////////////////////////////////////////////////////////////////////////////// ADMINISTRADOR //////////////////////////////////////////////////////////////////////////////
+
+router.get(
+    "/pending",
+    listUsersPending
+);
+
+router.post(
+    "/:id/activate",
+    activeUsers
+);
+
+router.delete(
+    "/:id/delete",
+    deleteRegisterUser
+);
+
+router.put(
+    "/:id/edit-balance",
+    editBalanceUser
+);
 
 export default router
