@@ -60,6 +60,9 @@ const userModel = new Schema({
         type: String,
         default: 'GTQ'
     },
+    userList:{
+        type: []
+    },
     status:{
         type: Boolean,
         default: true

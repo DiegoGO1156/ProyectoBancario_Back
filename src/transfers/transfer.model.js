@@ -1,4 +1,6 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
+
+const { Schema, model, models } = mongoose
 
 const transferModel = new Schema({
     senderName:{
@@ -68,4 +70,4 @@ const transferModel = new Schema({
     }
 )
 
-export default model("Transfer", transferModel)
+export default models.Transfer || model("Transfer", transferModel)
