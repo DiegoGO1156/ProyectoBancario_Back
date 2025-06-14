@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import User from "../users/user.model.js";
 import jwt from "jsonwebtoken";
 
 export const valueJWT = async (req, resp, next)=>{
     const token = req.header("Authorization");
+=======
+import User from "../user/user.model.js";
+import jwt from "jsonwebtoken";
+
+export const valueJWT = async (req, resp, next)=>{
+    const token = req.header("x-token");
+>>>>>>> Acarrillo-2020412
 
     if(!token){
         return resp.status(401).json({
@@ -10,7 +18,11 @@ export const valueJWT = async (req, resp, next)=>{
         })
     }
     try {
+<<<<<<< HEAD
         const {uid} = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+=======
+        const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+>>>>>>> Acarrillo-2020412
         const usuario = await User.findById(uid)
         if(!usuario){
             return resp.status(401).json({

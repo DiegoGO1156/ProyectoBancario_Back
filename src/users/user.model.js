@@ -52,6 +52,20 @@ const userModel = new Schema({
         enum: ["Pending", "Active"],
         default: "Pending"
     },
+<<<<<<< HEAD
+=======
+    verification:{
+        type: Boolean,
+        default: false
+    },
+    divisas:{
+        type: String,
+        default: 'GTQ'
+    },
+    userList:{
+        type: []
+    },
+>>>>>>> Acarrillo-2020412
     status:{
         type: Boolean,
         default: true
