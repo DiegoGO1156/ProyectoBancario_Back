@@ -1,10 +1,7 @@
 import User from "../users/user.model.js"
-<<<<<<< HEAD
 import Brand from "../brands/brand.model.js"
 import Product from "../products/product.model.js"
 import Service from "../services/service.model.js"
-=======
->>>>>>> Acarrillo-2020412
 
 ////////////////////////////////////////////////////////////////////////////// REGISTER ////////////////////////////////////////////////////////////////////////////////////
 export const emailUsed = async(email = "") =>{
@@ -33,28 +30,22 @@ export const minincome = async(income = "") =>{
 
 ////////////////////////////////////////////////////////////////////////////// LOGIN ////////////////////////////////////////////////////////////////////////////////////
 export const pendingAccount = async(email = "" )=>{
-<<<<<<< HEAD
     const emailLower = email.toLowerCase()
     const isPending = await User.findOne({email: emailLower})
-=======
-    const isPending = await User.findOne({email})
->>>>>>> Acarrillo-2020412
     if(isPending.statusAccount === "Pending"){
         throw new Error (`Your account is still pending confirmation, please wait until it is enabled`)
     }
 }
-<<<<<<< HEAD
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////// BRAND ////////////////////////////////////////////////////////////////////////////////////
-export const existBrandById = async (id = ' ') => {
+export const noExistBrandById = async (id = ' ') => {
 
     const existBrand = await Brand.findById(id);
-
     if(!existBrand){
         throw new Error(`The ID ${id} does not exist`);
     }
-
 }
 
 export const notExistBrand = async (nameBrand = ' ') => {
@@ -65,15 +56,29 @@ export const notExistBrand = async (nameBrand = ' ') => {
         throw new Error (`The brand ${nameBrand} does not exist`)
     }
 }
+
+export const brandDisabled = async (nameBrand = ' ') => {
+
+    const existNameBrand = await Brand.findOne({nameBrand})
+    
+    if(existNameBrand.status === false){
+        throw new Error (`The brand ${nameBrand} now is disabled`)
+    }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////// PRODUCT ////////////////////////////////////////////////////////////////////////////////////
-export const existProductById = async (id = ' ') => {
-
+export const noExistProductById = async (id = ' ') => {
     const existProduct = await Product.findById(id);
-
     if(!existProduct){
         throw new Error(`The ID ${id} does not exist`);
+    }
+}
+
+export const existProductName = async (nameProduct = ' ') => {
+    const existProduct = await Product.findOne({nameProduct});
+    if(existProduct){
+        throw new Error(`The product ${nameProduct} already exist`);
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,6 +92,11 @@ export const existServiceById = async (id = ' ') => {
         throw new Error(`The ID ${id} does not exist`);
     }
 }
-=======
->>>>>>> Acarrillo-2020412
+
+export const existServiceName = async(nameService = "") =>{
+    const existService = await Service.findOne({nameService})
+    if(existService){
+        throw new Error (`The service ${nameService} has already been registered`)        
+    }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -5,16 +5,12 @@ import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 import {hash} from "argon2"
 
-<<<<<<< HEAD
 import authRoutes from "../src/auth/authRoutes.js";
 import brandRoutes from "../src/brands/brand.routes.js";
 import productRoutes from "../src/products/product.routes.js";
 import serviceRoutes from "../src/services/service.routes.js";
 import userRoutes from "../src/users/userRoutes.js"
-=======
-import authRoutes from "../src/auth/authRoutes.js"
 import transferRoutes from "../src/transfers/transfer.routes.js";
->>>>>>> Acarrillo-2020412
 
 import User from "../src/users/user.model.js";
 
@@ -27,16 +23,12 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) =>{
-<<<<<<< HEAD
     app.use("/Valmeria_App/V1/Auth", authRoutes);
     app.use("/Valmeria_App/V1/Brands", brandRoutes);
     app.use("/Valmeria_App/V1/Products", productRoutes);
     app.use("/Valmeria_App/V1/Services", serviceRoutes);
     app.use("/Valmeria_App/V1/User", userRoutes);
-=======
-    app.use("/Valmeria_App/V1/Auth", authRoutes)
     app.use("/Valmeria_App/V1/transfers", transferRoutes)
->>>>>>> Acarrillo-2020412
 }
 
 const conectDB = async() =>{
@@ -66,11 +58,7 @@ export const initServer = async() =>{
 export const defaultAdmin = async() =>{
     try {
         const Adminemail = "adminb@gmail.com"
-<<<<<<< HEAD
         const password = "-ADMINB-"
-=======
-        const password = "ADMINB"
->>>>>>> Acarrillo-2020412
         const Adminusername = "ADMINB"
         
         const existAdmin = await User.findOne({email: Adminemail})
@@ -90,12 +78,8 @@ export const defaultAdmin = async() =>{
                 companyName: "Valmeria",
                 income: 0,
                 statusAccount: "Active",
-<<<<<<< HEAD
-                dpi: 111111122
-=======
                 dpi: 111111122,
-                verification: true
->>>>>>> Acarrillo-2020412
+                verificate: true
             })
             await adminUser.save()
             console.log("Administrador por defecto ha sido creado exitosamente!!!")

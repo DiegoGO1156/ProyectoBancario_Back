@@ -1,4 +1,4 @@
-import Transfer from "../transfers/transfer.model.js"
+import Transfer from "../transfers/Transfer.model.js"
 import jwt from "jsonwebtoken"
 import nodemailer from 'nodemailer'
 import User from "../users/user.model.js"

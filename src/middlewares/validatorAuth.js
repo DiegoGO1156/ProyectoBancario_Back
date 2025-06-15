@@ -1,36 +1,26 @@
 import { body } from "express-validator";
 import { validarCampos } from "./validarCampos.js"
-<<<<<<< HEAD
 import { emailUsed, minincome, pendingAccount, usedUsername } from "../helpers/db-Validator.js";
-=======
-import { emailUsed, minincome, usedUsername } from "../helpers/db-Validator.js";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer'
->>>>>>> Acarrillo-2020412
 import User from "../users/user.model.js";
 
 export const registerValidator =[
     body("name", "The name is required").not().isEmpty(),
     body("username", "The username is required").not().isEmpty(),
-<<<<<<< HEAD
     body("username").custom(usedUsername),
-=======
->>>>>>> Acarrillo-2020412
     body("dpi", "The DPI is required").not().isEmpty(),
     body("address", "The address is required").not().isEmpty(),
     body("phone", "The phone is required").not().isEmpty(),
     body("email", "The email is required").not().isEmpty(),
-<<<<<<< HEAD
     body("email").custom(emailUsed),
-=======
->>>>>>> Acarrillo-2020412
     body("password", "The password is required").notEmpty().isLength({min: 8}).withMessage("The minimum number of characters in the password must be 8"),
     body("companyName", "The company Name is required").not().isEmpty(),
     body("income", "The income is required").notEmpty(),
     body("income", "The income is required").custom(minincome),
     validarCampos
 ]
-<<<<<<< HEAD
+
 export const loginValidator = [
     body("email").optional().isEmail().withMessage("Ingresa una direccion de correo valida"),
     body("email").optional().custom(pendingAccount),
@@ -38,7 +28,6 @@ export const loginValidator = [
     body("password", "The password must have at least 8 characters").isLength({min:8}),
     validarCampos
 ]
-=======
 
 export const validateRegister = async (req, res, userData) => {
     const {accountNumber, ...data} = req.body
@@ -294,4 +283,3 @@ export const validateVerifyEmail = async (req, res, user, token) => {
       </html>
     `);
 }
->>>>>>> Acarrillo-2020412
