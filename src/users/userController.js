@@ -102,13 +102,13 @@ export const listHistorialTransfer = async(req, res) =>{
 
 export const listUsersPending = async (req, res) => {
     try {
-        const users = await User.find({ status: "pending" });
+        const users = await User.find({ status: "Pending" });
         return res.status(200).json({
             message: "Pending users fetched successfully",
             users
         });
     } catch (err) {
-        console.error("Error fetching pending users:", error);
+        console.error("Error fetching pending users:", err);
         return res.status(500).json({ 
             message: "Internal server error",
             error: err.message 
@@ -125,7 +125,7 @@ export const activeUsers = async (req, res) => {
             user
         });
     } catch (err) {
-        console.error("Error activating user:", error);
+        console.error("Error activating user:", err);
         return res.status(500).json({ 
             message: "Internal server error", 
             error: err.message
