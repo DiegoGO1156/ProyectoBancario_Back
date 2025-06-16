@@ -18,7 +18,7 @@ router.put(
 )
 
 router.put(
-    "/updatePassword",
+    "/updatePassword/:id",
     valueJWT,
     passwordValidatorMiddleware,
     updatePassword

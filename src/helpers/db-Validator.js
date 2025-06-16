@@ -1,4 +1,7 @@
 import User from "../users/user.model.js"
+import Brand from "../brands/brand.model.js"
+import Product from "../products/product.model.js"
+import Service from "../services/service.model.js"
 
 ////////////////////////////////////////////////////////////////////////////// REGISTER ////////////////////////////////////////////////////////////////////////////////////
 export const emailUsed = async(email = "") =>{
@@ -31,6 +34,69 @@ export const pendingAccount = async(email = "" )=>{
     const isPending = await User.findOne({email: emailLower})
     if(isPending.statusAccount === "Pending"){
         throw new Error (`Your account is still pending confirmation, please wait until it is enabled`)
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////// BRAND ////////////////////////////////////////////////////////////////////////////////////
+export const noExistBrandById = async (id = ' ') => {
+
+    const existBrand = await Brand.findById(id);
+    if(!existBrand){
+        throw new Error(`The ID ${id} does not exist`);
+    }
+}
+
+export const notExistBrand = async (nameBrand = ' ') => {
+
+    const existNameBrand = await Brand.findOne({nameBrand})
+    
+    if(!existNameBrand){
+        throw new Error (`The brand ${nameBrand} does not exist`)
+    }
+}
+
+export const brandDisabled = async (nameBrand = ' ') => {
+
+    const existNameBrand = await Brand.findOne({nameBrand})
+    
+    if(existNameBrand.status === false){
+        throw new Error (`The brand ${nameBrand} now is disabled`)
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////// PRODUCT ////////////////////////////////////////////////////////////////////////////////////
+export const noExistProductById = async (id = ' ') => {
+    const existProduct = await Product.findById(id);
+    if(!existProduct){
+        throw new Error(`The ID ${id} does not exist`);
+    }
+}
+
+export const existProductName = async (nameProduct = ' ') => {
+    const existProduct = await Product.findOne({nameProduct});
+    if(existProduct){
+        throw new Error(`The product ${nameProduct} already exist`);
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////// SERVICE ////////////////////////////////////////////////////////////////////////////////////
+export const existServiceById = async (id = ' ') => {
+
+    const existService = await Service.findById(id);
+
+    if(!existService){
+        throw new Error(`The ID ${id} does not exist`);
+    }
+}
+
+export const existServiceName = async(nameService = "") =>{
+    const existService = await Service.findOne({nameService})
+    if(existService){
+        throw new Error (`The service ${nameService} has already been registered`)        
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -10,6 +10,7 @@ import brandRoutes from "../src/brands/brand.routes.js";
 import productRoutes from "../src/products/product.routes.js";
 import serviceRoutes from "../src/services/service.routes.js";
 import userRoutes from "../src/users/userRoutes.js"
+import transferRoutes from "../src/transfers/transfer.routes.js";
 
 import User from "../src/users/user.model.js";
 
@@ -27,6 +28,7 @@ const routes = (app) =>{
     app.use("/Valmeria_App/V1/Products", productRoutes);
     app.use("/Valmeria_App/V1/Services", serviceRoutes);
     app.use("/Valmeria_App/V1/User", userRoutes);
+    app.use("/Valmeria_App/V1/transfers", transferRoutes)
 }
 
 const conectDB = async() =>{
@@ -56,7 +58,7 @@ export const initServer = async() =>{
 export const defaultAdmin = async() =>{
     try {
         const Adminemail = "adminb@gmail.com"
-        const password = "ADMINB"
+        const password = "-ADMINB-"
         const Adminusername = "ADMINB"
         
         const existAdmin = await User.findOne({email: Adminemail})
@@ -76,7 +78,8 @@ export const defaultAdmin = async() =>{
                 companyName: "Valmeria",
                 income: 0,
                 statusAccount: "Active",
-                dpi: 111111122
+                dpi: 111111122,
+                verificate: true
             })
             await adminUser.save()
             console.log("Administrador por defecto ha sido creado exitosamente!!!")

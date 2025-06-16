@@ -52,6 +52,17 @@ const userModel = new Schema({
         enum: ["Pending", "Active"],
         default: "Pending"
     },
+    verification:{
+        type: Boolean,
+        default: false
+    },
+    divisas:{
+        type: String,
+        default: 'GTQ'
+    },
+    userList:{
+        type: []
+    },
     status:{
         type: Boolean,
         default: true

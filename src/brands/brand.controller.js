@@ -86,7 +86,7 @@ export const updateBrand = async(req, res = response) => {
         return res.status(500).json({
             success: false,
             msg: 'Error updating the brand',
-            error: e.message
+            error: error.message
         });
     }
 }

@@ -1,6 +1,6 @@
-import { verifyPassword } from "../middlewares/verifyPassword.js"
 import {validatePassword} from "../middlewares/validatorPasswords.js"
 import User from "./user.model.js"
+import { hash, verify } from "argon2"
 
 export const listDataUser = async(req, res) =>{
     try {
@@ -44,13 +44,26 @@ export const updateDatauser = async(req, res) =>{
 
 export const updatePassword = async(req, res) =>{
     try {
-        const user = req.user._id
-        const {password, newPassword} = req.body
+        const { id } = req.params
+        const { oldPassword, newPassword } = req.body
 
-        verifyPassword(newPassword)
+        const userFounded = await User.findById(id)
+
+
+        console.log(userFounded.password)
+        const verifyPass = await verify(userFounded.password, oldPassword)
+        console.log(verifyPass)
+
+        if(!verifyPass){
+            return res.status(401).json({
+                msg: `The password ${oldPassword} is Incorrect`
+            })
+        }
+
         validatePassword(newPassword)
 
-        await User.findByIdAndUpdate(user, {password: newPassword}, {new: true})
+        const pass = await hash(newPassword)
+        await User.findByIdAndUpdate(id, {password: pass}, {new: true})
 
         return res.status(200).json({
             msg: "Contraseña actualizada con exito"
