@@ -44,7 +44,7 @@ const userModel = new Schema({
     },
     role:{
         type: String,
-        enum: ["USER", "ADMIN", "ADMIN_PAGE"],
+        enum: ["USER", "ADMIN"],
         default: "USER"
     },
     statusAccount:{

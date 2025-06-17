@@ -79,7 +79,7 @@ export const defaultAdmin = async() =>{
                 income: 0,
                 statusAccount: "Active",
                 dpi: 111111122,
-                verificate: true
+                verification: true
             })
             await adminUser.save()
             console.log("Administrador por defecto ha sido creado exitosamente!!!")
