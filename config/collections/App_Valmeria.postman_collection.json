@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bfe620da-7fbc-4e4c-9ca6-de680d6ca2bf",
+		"_postman_id": "ab929b44-be16-44d5-838d-52126f007068",
 		"name": "App_Valmeria",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42631856"
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Diego Garcia\",\r\n    \"email\": \"dgarcia@g.com\",\r\n    \"username\": \"dgarcia\",\r\n    \"dpi\": 123456,\r\n    \"address\": \"Hola como estan\",\r\n    \"phone\": 12345678,\r\n    \"password\": \"12345678\",\r\n    \"companyName\": \"DiegoIndustries\",\r\n    \"income\": 1500\r\n}",
+							"raw": "{\r\n    \"name\": \"Diego Garcia\",\r\n    \"email\": \"agarcia@gmail.com\",\r\n    \"username\": \"agarcoa\",\r\n    \"dpi\": 8295256018771,\r\n    \"address\": \"Zona 18\",\r\n    \"phone\": 85026281,\r\n    \"password\": \"Pass#$3388\",\r\n    \"companyName\": \"Diego Industries\",\r\n    \"income\": 1000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -47,7 +47,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"ADMINB\",\r\n    \"email\": \"adminb@gmail.com\",\r\n    \"username\": \"adminb\",\r\n    \"dpi\": 111111122,\r\n    \"address\": \"-----\",\r\n    \"phone\": 12345678,\r\n    \"password\": \"-ADMINB-\",\r\n    \"companyName\": \"Valmeria\",\r\n    \"income\": 0\r\n}",
+							"raw": "{\r\n    \"username\": \"gcontreras\",\r\n    \"password\": \"Pass#$3388\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,14 +82,14 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxOGEzNTcxOGYzYzBkMGNiMTYzZTMiLCJpYXQiOjE3NTAxNzcwMzIsImV4cCI6MTc1MDE5NTAzMn0.4nRe4g9twfm9y1dYU3-I78azluniHZ8TngNESmGWYL8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nameBrand\": \"Claro\",\r\n    \"image\": \"a\"\r\n}",
+							"raw": "{\r\n    \"nameBrand\": \"Coca-Cola\",\r\n    \"image\": \"d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -119,7 +119,7 @@
 						"method": "PUT",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -157,7 +157,7 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -186,7 +186,7 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -214,7 +214,7 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -248,14 +248,14 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxOGEzNTcxOGYzYzBkMGNiMTYzZTMiLCJpYXQiOjE3NTAxNzcwMzIsImV4cCI6MTc1MDE5NTAzMn0.4nRe4g9twfm9y1dYU3-I78azluniHZ8TngNESmGWYL8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nameProduct\": \"Iphone 15\",\r\n    \"description\": \"Celular Inteligente\",\r\n    \"image\": \"c\",\r\n    \"price\": 1500,\r\n    \"brand\": \"Claro\"\r\n}",
+							"raw": "{\r\n    \"nameProduct\": \"Dulces sabor a Coca-Cola\",\r\n    \"description\": \"Tiempo limitado\",\r\n    \"image\": \"g\",\r\n    \"price\": 12,\r\n    \"brand\": \"Coca-Cola\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -285,7 +285,7 @@
 						"method": "PUT",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -323,7 +323,7 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -361,7 +361,7 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -389,7 +389,7 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -423,14 +423,14 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "x-token",
-								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxOGEzNTcxOGYzYzBkMGNiMTYzZTMiLCJpYXQiOjE3NTAxNzcwMzIsImV4cCI6MTc1MDE5NTAzMn0.4nRe4g9twfm9y1dYU3-I78azluniHZ8TngNESmGWYL8",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nameService\": \"Agua\",\r\n    \"image\": \"e\",\r\n    \"brand\": \"Claro\"\r\n}",
+							"raw": "{\r\n    \"nameService\": \"Internet\",\r\n    \"image\": \"c\",\r\n    \"brand\": \"Coca-Cola\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -460,7 +460,7 @@
 						"method": "PUT",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -498,7 +498,7 @@
 						"method": "DELETE",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -527,7 +527,7 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -555,7 +555,7 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "x-token",
+								"key": "Authorization",
 								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
 								"type": "text"
 							}
@@ -573,6 +573,164 @@
 								"Services",
 								"findService",
 								"6847b8eb18aa670648080809"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfers",
+			"item": [
+				{
+					"name": "Agregar Transferencia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxOWJmOTcxOGYzYzBkMGNiMTY0NjYiLCJpYXQiOjE3NTAxNzk1MDYsImV4cCI6MTc1MDE5NzUwNn0.sJd3Tb-3qS2VMpgEdRJUR7kCrZxBgjW0pfhMtp4zT3k",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\":50,\r\n    \"accountNumberAddresser\": 7371739707,\r\n    \"motive\":\"Por ser mi papa iihh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/make-transfer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"make-transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Transferencia por Usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNmFmNTU2NWQwOTRiMzQzZDFjM2QiLCJpYXQiOjE3NTAxNjkyMTMsImV4cCI6MTc1MDE4NzIxM30.nM0AaPHGSw36tm89o6_1Kary-t-sjzGJJHE-OzL0kOQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/get-user/685171f7565d094b343d1c42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"get-user",
+								"685171f7565d094b343d1c42"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Transferencia",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/get/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Usuarios Transferidos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/get-user-transfered/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"get-user-transfered",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Favorito",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/favorite/4714344998",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"favorite",
+								"4714344998"
 							]
 						}
 					},

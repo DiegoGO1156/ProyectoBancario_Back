@@ -72,6 +72,13 @@ export const brandDisabled = async (nameBrand = ' ') => {
         throw new Error (`The brand ${nameBrand} now is disabled`)
     }
 }
+
+export const existBrandName = async (nameBrand = ' ') => {
+    const existBrand = await Brand.findOne({nameBrand});
+    if(existBrand){
+        throw new Error(`The brand ${nameBrand} already exists`)
+    }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////// PRODUCT ////////////////////////////////////////////////////////////////////////////////////
@@ -85,7 +92,7 @@ export const noExistProductById = async (id = ' ') => {
 export const existProductName = async (nameProduct = ' ') => {
     const existProduct = await Product.findOne({nameProduct});
     if(existProduct){
-        throw new Error(`The product ${nameProduct} already exist`);
+        throw new Error(`The product ${nameProduct} already exists`);
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
