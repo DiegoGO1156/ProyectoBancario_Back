@@ -44,22 +44,18 @@ export const updateDatauser = async(req, res) =>{
 
 export const updatePassword = async(req, res) =>{
     try {
-        const { id } = req.params
-        const { oldPassword, newPassword } = req.body
+        const userId = req.user._id
+        const { oldPassword, password } = req.body
+        console.log(userId)
 
-        const userFounded = await User.findById(id)
-
-
-        console.log(userFounded.password)
+        const userFounded = await User.findById(userId)
         const verifyPass = await verify(userFounded.password, oldPassword)
-        console.log(verifyPass)
 
         if(!verifyPass){
             return res.status(401).json({
                 msg: `The password ${oldPassword} is Incorrect`
             })
         }
-
         validatePassword(newPassword)
 
         const pass = await hash(newPassword)
@@ -76,23 +72,3 @@ export const updatePassword = async(req, res) =>{
         })
     }
 }
-/*
-export const listHistorialTransfer = async(req, res) =>{
-    try {
-        const idUser = req.user._id
-
-        const {limite = 5, desde = 0} = req.query
-
-        const query = {_id: idUser}
-        const [total, transfers] = await Promise.all([
-
-        ])
-
-    } catch (err) {
-        return res.status(500).json({
-            success: false,
-            error: err.message
-        })
-    }
-}
-*/

@@ -1,14 +1,9 @@
 import { Router } from "express"
-import { check } from "express-validator"
-import { validarCampos } from "../middlewares/validarCampos.js"
 import {addTransfer, buyProduct, completePayService, completePurchase, completeTransfer, denyPayment, denyPurchase, denyTransfer, getTransferences, getTransferencesByUser, listUserTransfered, makeAUserFavorite, payService} from "../transfers/transfer.controller.js"
 
 const router = Router()
 router.post(
     "/make-transfer/",
-    [
-        validarCampos
-    ],
     addTransfer
 )
 

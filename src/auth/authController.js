@@ -19,9 +19,24 @@ export const login = async(req, res) =>{
             $or: [{email: lowerEmail}, {username: username}]
         })
         const validPass = await verify(findUser.password, password)
-
         await validateLogin(req, res, findUser, validPass)
           if(res.headersSent) return
+        
+        console.log('hola')
+
+        if(findUser.verification != true){
+            return res.status(401).json({
+                success:false,
+                msg: "Falta validar la cuenta."
+            })
+        }
+
+        if(!validPass){
+            return res.status(401).json({
+                success:false,
+                msg: "Incorrect password"
+            })
+        }
 
         const token = await generarJWT(findUser.id)
 
@@ -72,7 +87,7 @@ export const register = async(req, res) =>{
         }
         
         if(!verifyEmail){
-            userData = await User.create({
+        const userData = await User.create({
                 ...data,
                 accountNumber: newAccountNumber,
                 password: encryptPass,
@@ -97,7 +112,6 @@ export const register = async(req, res) =>{
 
         await validateRegister(req, res, userData)
           if(res.headersSent) return
-          
         return res.status(200).json({
             msg: "Pendiente de activación para su cuenta",
             userData
