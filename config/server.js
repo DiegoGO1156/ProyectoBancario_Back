@@ -5,7 +5,11 @@ import morgan from "morgan";
 import { dbConnection } from "./mongo.js";
 import {hash} from "argon2"
 
-import authRoutes from "../src/auth/authRoutes.js"
+import authRoutes from "../src/auth/authRoutes.js";
+import brandRoutes from "../src/brands/brand.routes.js";
+import productRoutes from "../src/products/product.routes.js";
+import serviceRoutes from "../src/services/service.routes.js";
+import userRoutes from "../src/users/userRoutes.js"
 import transferRoutes from "../src/transfers/transfer.routes.js";
 
 import User from "../src/users/user.model.js";
@@ -19,7 +23,11 @@ const middlewares = (app) =>{
 }
 
 const routes = (app) =>{
-    app.use("/Valmeria_App/V1/Auth", authRoutes)
+    app.use("/Valmeria_App/V1/Auth", authRoutes);
+    app.use("/Valmeria_App/V1/Brands", brandRoutes);
+    app.use("/Valmeria_App/V1/Products", productRoutes);
+    app.use("/Valmeria_App/V1/Services", serviceRoutes);
+    app.use("/Valmeria_App/V1/User", userRoutes);
     app.use("/Valmeria_App/V1/transfers", transferRoutes)
 }
 
@@ -50,7 +58,7 @@ export const initServer = async() =>{
 export const defaultAdmin = async() =>{
     try {
         const Adminemail = "adminb@gmail.com"
-        const password = "ADMINB"
+        const password = "-ADMINB-"
         const Adminusername = "ADMINB"
         
         const existAdmin = await User.findOne({email: Adminemail})

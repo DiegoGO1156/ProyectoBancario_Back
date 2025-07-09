@@ -1,0 +1,742 @@
+{
+	"info": {
+		"_postman_id": "3357ccba-6b21-41a6-8c22-b9dd215a1bc6",
+		"name": "App_Valmeria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42619086"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Alejandro Carrillo\",\r\n    \"email\": \"acarrillo@gmail.com\",\r\n    \"username\": \"acarrillo\",\r\n    \"dpi\": 1234567891234,\r\n    \"address\": \"Hola como estan\",\r\n    \"phone\": 12345678,\r\n    \"password\": \"12345678@A\",\r\n    \"companyName\": \"DiegoIndustries\",\r\n    \"income\": 1500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"adminb\",\r\n    \"password\": \"-ADMINB-\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Brand",
+			"item": [
+				{
+					"name": "Crear Marca",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameBrand\": \"Claro\",\r\n    \"image\": \"a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Brands/createBrand",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Brands",
+								"createBrand"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Marca",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameBrand\": \"Tigo\",\r\n    \"image\": \"b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Brands/updateBrand/6847b7d818aa6706480807db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Brands",
+								"updateBrand",
+								"6847b7d818aa6706480807db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Marca",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Brands/deleteBrand/6847b7d818aa6706480807db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Brands",
+								"deleteBrand",
+								"6847b7d818aa6706480807db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Marcas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Brands/allBrands",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Brands",
+								"allBrands"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Marcas por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Brands/findBrand/6847b81218aa6706480807e6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Brands",
+								"findBrand",
+								"6847b81218aa6706480807e6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Crear Producto",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameProduct\": \"Iphone 15\",\r\n    \"description\": \"Celular Inteligente\",\r\n    \"image\": \"c\",\r\n    \"price\": 1500,\r\n    \"brand\": \"Claro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Products/createProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Products",
+								"createProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Producto",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameProduct\": \"Guitarra Electrica\",\r\n    \"description\": \"Instrumento musical\",\r\n    \"image\": \"d\",\r\n    \"price\": 3000,\r\n    \"brand\": \"Claro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Products/updateProduct/6847b86418aa6706480807f2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Products",
+								"updateProduct",
+								"6847b86418aa6706480807f2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Products/deleteProduct/6847b86418aa6706480807f2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Products",
+								"deleteProduct",
+								"6847b86418aa6706480807f2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Productos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Products/allProducts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Products",
+								"allProducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Productos por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Products/findProduct/6847b86418aa6706480807f2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Products",
+								"findProduct",
+								"6847b86418aa6706480807f2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "Crear Servicio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nameService\": \"Agua\",\r\n    \"image\": \"e\",\r\n    \"brand\": \"Claro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Services/createService",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Services",
+								"createService"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Servicio",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"nameService\": \"Internet\",\r\n    \"image\": \"f\",\r\n    \"brand\": \"Claro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Services/updateService/6847b8eb18aa670648080809",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Services",
+								"updateService",
+								"6847b8eb18aa670648080809"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Servicio",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Services/deleteService/6847b8eb18aa670648080809",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Services",
+								"deleteService",
+								"6847b8eb18aa670648080809"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Servicios",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Services/allServices",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Services",
+								"allServices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Servicios por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODQ3Yjc2MDE4YWE2NzA2NDgwODA3ZDUiLCJpYXQiOjE3NDk1MzA1NTgsImV4cCI6MTc0OTU0ODU1OH0.8Ps2b40P4syp_i0rXCtN163zC86W-8pYPOBVF8X5vB4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/Services/findService/6847b8eb18aa670648080809",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"Services",
+								"findService",
+								"6847b8eb18aa670648080809"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transfers",
+			"item": [
+				{
+					"name": "Agregar Transferencia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\":12,\r\n    \"accountNumberAddresser\": 1037502511,\r\n    \"motive\":\"Pago de deuda\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/make-transfer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"make-transfer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Transferencia por Usuario",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNmFmNTU2NWQwOTRiMzQzZDFjM2QiLCJpYXQiOjE3NTAxNjkyMTMsImV4cCI6MTc1MDE4NzIxM30.nM0AaPHGSw36tm89o6_1Kary-t-sjzGJJHE-OzL0kOQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/get-user/685171f7565d094b343d1c42",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"get-user",
+								"685171f7565d094b343d1c42"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Transferencia",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/get/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Usuarios Transferidos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/get-user-transfered/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"get-user-transfered",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Favorito",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODUxNzFmNzU2NWQwOTRiMzQzZDFjNDIiLCJpYXQiOjE3NTAxNjgzMDgsImV4cCI6MTc1MDE4NjMwOH0.iHDgHlf3lsWXGXZqjxFTsT85WbnbTuu8djfRwT837_4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/Valmeria_App/V1/transfers/favorite/4714344998",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"Valmeria_App",
+								"V1",
+								"transfers",
+								"favorite",
+								"4714344998"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

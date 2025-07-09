@@ -1,8 +1,8 @@
-import User from "../user/user.model.js";
+import User from "../users/user.model.js";
 import jwt from "jsonwebtoken";
 
 export const valueJWT = async (req, resp, next)=>{
-    const token = req.header("x-token");
+    const token = req.header("Authorization");
 
     if(!token){
         return resp.status(401).json({
@@ -10,7 +10,7 @@ export const valueJWT = async (req, resp, next)=>{
         })
     }
     try {
-        const {uid} = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+        const {uid} = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
         const usuario = await User.findById(uid)
         if(!usuario){
             return resp.status(401).json({

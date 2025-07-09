@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 import { validarCampos } from "./validarCampos.js"
-import { emailUsed, minincome, usedUsername } from "../helpers/db-Validator.js";
+import { emailUsed, minincome, pendingAccount, usedUsername } from "../helpers/db-Validator.js";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer'
 import User from "../users/user.model.js";
@@ -19,6 +19,36 @@ export const registerValidator =[
     validarCampos
 ]
 
+export const loginValidator = [
+    body("email").optional().isEmail().withMessage("Ingresa una direccion de correo valida"),
+    body("email").optional().custom(pendingAccount),
+    body("username").optional().isString().withMessage("Ingrese un username valido"),
+    body("password", "The password must have at least 8 characters").isLength({min:8}),
+    validarCampos
+]
+
+export const validateLogin = async (req, res, findUser, validPass) => {
+  if(findUser.verification != true){
+    return res.status(401).json({
+        success:false,
+        msg: "Falta validar la cuenta."
+    })
+  }
+
+  if(findUser.statusAccount == 'Pending'){
+    return res.status(401).json({
+        success:false,
+        msg: "Cuenta aún no validada por administrador."
+    })
+  }
+
+  if(!validPass){
+    return res.status(401).json({
+        success:false,
+        msg: "Incorrect password"
+    })
+  }
+}
 export const validateRegister = async (req, res, userData) => {
     const {accountNumber, ...data} = req.body
     const token = jwt.sign({ email: data.email.toLowerCase()}, process.env.SECRETOPRIVATEKEY, {
@@ -169,6 +199,8 @@ export const validateVerifyEmail = async (req, res, user, token) => {
     if (!user) {
         return res.status(404).json({ msg: "User not found." })
     }
+    const currentUser = await User.findOne({email})
+    await User.findByIdAndUpdate(currentUser.id, {verification:true}, {new:true})
     res.send(`
       <!DOCTYPE html>
       <html lang="es">

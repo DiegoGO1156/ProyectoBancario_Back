@@ -1,12 +1,13 @@
-import { generarJWT } from "../helpers/generateJWT.js"
-import User from "../users/user.model.js"
-import { hash, verify } from "argon2"
-import { validateDPI } from "../middlewares/validateDPI.js"
-import { validatePassword } from "../middlewares/validatorPasswords.js"
+
+import { generarJWT } from "../helpers/generateJWT.js";
+import User from "../users/user.model.js";
+import { hash, verify } from "argon2";
+import { validateDPI } from "../middlewares/validateDPI.js";
+import { validatePassword } from "../middlewares/validatorPasswords.js";
 import jwt from "jsonwebtoken"
-import nodemailer from 'nodemailer'
 import { validateEmailToken, validateExpiredToken, validateToken } from "../middlewares/validateCommonStuff.js"
-import { validateRegister, validateVerifyEmail } from "../middlewares/validatorAuth.js"
+import { validateLogin, validateRegister, validateVerifyEmail } from "../middlewares/validatorAuth.js"
+
 export const login = async(req, res) =>{
     try {
         
@@ -18,21 +19,9 @@ export const login = async(req, res) =>{
             $or: [{email: lowerEmail}, {username: username}]
         })
         const validPass = await verify(findUser.password, password)
-        console.log('hola')
 
-        if(findUser.verification != true){
-            return res.status(401).json({
-                success:false,
-                msg: "Falta validar la cuenta."
-            })
-        }
-
-        if(!validPass){
-            return res.status(401).json({
-                success:false,
-                msg: "Contraseña incorrecta"
-            })
-        }
+        await validateLogin(req, res, findUser, validPass)
+          if(res.headersSent) return
 
         const token = await generarJWT(findUser.id)
 
@@ -63,9 +52,26 @@ export const register = async(req, res) =>{
         const encryptPass = await hash(data.password)
 
         validateDPI(data.dpi);
+
+        const verifyUsername = await User.findOne({username: data.username.toLowerCase(), verification:true})
+        const verifyEmail = await User.findOne({email: data.email.toLowerCase(), verification:true})
         let userData
-        const userExist = await User.findOne({email: data.email.toLowerCase()})
-        if(!userExist){
+
+        if(verifyEmail){
+            return res.status(400).json({
+                msg: "Cuenta ya registrada.",
+                userData
+            })
+        }
+        
+        if(verifyUsername){
+            return res.status(400).json({
+                msg: "Cuenta ya registrada.",
+                userData
+            })
+        }
+        
+        if(!verifyEmail){
             userData = await User.create({
                 ...data,
                 accountNumber: newAccountNumber,
@@ -74,6 +80,19 @@ export const register = async(req, res) =>{
                 email: data.email.toLowerCase(),
                 userList:[]
             })
+        } 
+
+        if(verifyEmail){
+            userData = await User.create({
+                ...data,
+                accountNumber: newAccountNumber,
+                password: encryptPass,
+                username: data.username.toLowerCase(),
+                email: data.email.toLowerCase(),
+                userList:[]
+            })
+        } else{
+            
         }
 
         await validateRegister(req, res, userData)
@@ -83,6 +102,7 @@ export const register = async(req, res) =>{
             msg: "Pendiente de activación para su cuenta",
             userData
         })
+
     } catch (err) {
         return res.status(500).json({
             success: false,
@@ -90,7 +110,6 @@ export const register = async(req, res) =>{
         })
     }
 }
-
 
 export const verifyEmail = async (req, res) => {
     try {

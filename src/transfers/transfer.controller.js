@@ -4,15 +4,25 @@ import User from "../users/user.model.js"
 import jwt from "jsonwebtoken"
 import { validateEmailToken, validateEmailTokenVerify, validateExpiredToken, validateToken } from "../middlewares/validateCommonStuff.js"
 import { 
+  validateAddPaymentServiceEmail,
+  validateAddProductPurchaseEmail,
   validateAddTransfers, 
   validateAddTransfersEmail, 
+  validateBuyProduct, 
+  validateCompletePayment, 
+  validateCompletePurchase, 
   validateCompleteTransfer, 
+  validateDenyPayment, 
+  validateDenyPurchase, 
   validateGetTransferences, 
   validateListUserTransfered, 
   validateMakeAUserFavorite, 
+  validatePayService, 
   valodateDenyTransfer,
   valodateGetTransferencesByUser
 } from "../middlewares/validateTransfers.js"
+import Product from "../products/product.model.js"
+import Service from "../services/service.model.js"
 
 export const addTransfer = async (req, res)=>{
     try {
@@ -25,7 +35,7 @@ export const addTransfer = async (req, res)=>{
         let newAmount = amount.toFixed(2)
         const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
         const senderUser = await User.findById(uid)
-        const addresserUser = await User.findOne({accountNumber: accountNumberAddresser})
+        const addresserUser = await User.findOne({accountNumber: accountNumberAddresser, statusAccount:"Active", verification: true})
         const date = new Date()
         const dateToIzo = date.toISOString()
         const currentDate = dateToIzo.replace('Z', '+00:00')
@@ -56,6 +66,110 @@ export const addTransfer = async (req, res)=>{
             transfer,
 
         })
+        
+    } catch (e) {
+        return res.status(500).json({
+            message: "Transfer creation failed",
+            error: e.message
+        })
+    }
+}
+
+export const buyProduct = async (req, res)=>{
+    try {
+      const token = await req.header('Authorization')
+      
+      await validateToken(req, res)
+      if(res.headersSent) return
+
+      const {id} = req.params
+      const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+      const senderUser = await User.findById(uid)
+      const product = await Product.findById(id)
+      
+      const date = new Date()
+      const dateToIzo = date.toISOString()
+      const currentDate = dateToIzo.replace('Z', '+00:00')
+      
+      await validateBuyProduct(req, res, senderUser, product)
+        if(res.headersSent) return
+      
+      const transfer = await Transfer.create({ 
+        senderName: senderUser.name,
+        productName: product.nameProduct,
+        senderRef: senderUser.id,
+        productRef: product.id,
+        amount: product.price,
+        senderNumber: senderUser.accountNumber,
+        motive: `Purchase of the following product: ${product.nameProduct}, with price: ${product.price}, with id: ${product.id}`,
+        date: currentDate
+      })
+
+      setTimeout(() => deleteUselessTransferences(transfer.id), 90_000)
+
+      await validateAddProductPurchaseEmail(req, res, senderUser, product, transfer)
+        if(res.headersSent) return
+      return res.status(200).json({
+          success: true,
+          message: "Product successfully purchased.",
+          transfer,
+      })
+        
+    } catch (e) {
+        return res.status(500).json({
+            message: "Transfer creation failed",
+            error: e.message
+        })
+    }
+}
+
+export const payService = async (req, res)=>{
+    try {
+      const token = await req.header('Authorization')
+      
+      await validateToken(req, res)
+      if(res.headersSent) return
+
+      const { amount } = req.body || {}
+
+      const {id} = req.params
+      const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+      const senderUser = await User.findById(uid)
+      const service = await Service.findById(id)
+      
+      const date = new Date()
+      const dateToIzo = date.toISOString()
+      const currentDate = dateToIzo.replace('Z', '+00:00')
+      
+      await validatePayService(req, res, senderUser, service, amount)
+        if(res.headersSent) return
+      let newAmount = 0
+      if(service.exclusive){
+        newAmount = service.price
+      } else{
+        newAmount = amount
+      }
+      
+      const transfer = await Transfer.create({ 
+        senderName: senderUser.name,
+        serviceName: service.nameProduct,
+        senderRef: senderUser.id,
+        serviceRef: service.id,
+        amount: newAmount,
+        senderNumber: senderUser.accountNumber,
+        motive: `Payment of the following service: ${service.nameService}, with price: ${service.price}, with id: ${service.id}`,
+        date: currentDate
+      })
+
+      setTimeout(() => deleteUselessTransferences(transfer.id), 90_000)
+
+      await validateAddPaymentServiceEmail(req, res, senderUser, service, transfer, newAmount)
+        if(res.headersSent) return
+      return res.status(200).json({
+          success: true,
+          message: "Product successfully purchased.",
+          transfer,
+      })
         
     } catch (e) {
         return res.status(500).json({
@@ -134,6 +248,53 @@ export const completeTransfer = async (req, res)=>{
     }
 }
 
+export const completePurchase = async (req, res)=>{
+    try {
+        const token = req.query.tokenEmail;
+    
+        await validateEmailTokenVerify(req, res)
+          if(res.headersSent) return
+
+        const { email, number } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const senderUser = await User.findOne({email})
+        const product = await Product.findById(number)
+        const date = new Date()
+        const dateToIzo = date.toISOString()
+        const currentDate = dateToIzo.replace('Z', '+00:00')
+
+        await validateCompletePurchase(req, res, senderUser, product, currentDate)
+          if(res.headersSent) return
+        
+    } catch (e) {
+        console.log(e)
+        await validateExpiredToken(req, res)
+          if(res.headersSent) return
+    }
+}
+
+export const completePayService = async (req, res)=>{
+    try {
+        const token = req.query.tokenEmail;
+    
+        await validateEmailTokenVerify(req, res)
+          if(res.headersSent) return
+
+        const { email, number } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const senderUser = await User.findOne({email})
+        const service = await Service.findById(number)
+        const date = new Date()
+        const dateToIzo = date.toISOString()
+        const currentDate = dateToIzo.replace('Z', '+00:00')
+        await validateCompletePayment(req, res, senderUser, service, currentDate)
+          if(res.headersSent) return
+        
+    } catch (e) {
+        console.log(e)
+        await validateExpiredToken(req, res)
+          if(res.headersSent) return
+    }
+}
+
 export const denyTransfer = async (req, res)=>{
     try {
         const token = req.query.tokenEmail;
@@ -157,6 +318,55 @@ export const denyTransfer = async (req, res)=>{
           if(res.headersSent) return
     }
 }
+
+export const denyPurchase = async (req, res)=>{
+    try {
+        const token = req.query.tokenEmail;
+    
+        await validateEmailTokenVerify(req, res)
+          if(res.headersSent) return
+
+        const { email, number, transferId } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const senderUser = await User.findOne({email})
+        const product = await Product.findById(number)
+        
+        await Transfer.findByIdAndUpdate(transferId,{
+            verification: true
+        })
+
+        await validateDenyPurchase(req, res, senderUser, product, token)
+          if(res.headersSent) return
+    } catch (e) {
+        console.log(e)
+        await validateExpiredToken(req, res)
+          if(res.headersSent) return
+    }
+}
+
+export const denyPayment = async (req, res)=>{
+    try {
+        const token = req.query.tokenEmail;
+    
+        await validateEmailTokenVerify(req, res)
+          if(res.headersSent) return
+
+        const { email, number, transferId } = jwt.verify(token, process.env.SECRETOPRIVATEKEY)
+        const senderUser = await User.findOne({email})
+        const service = await Service.findById(number)
+        
+        await Transfer.findByIdAndUpdate(transferId,{
+            verification: true
+        })
+
+        await validateDenyPayment(req, res, senderUser, service, token)
+          if(res.headersSent) return
+    } catch (e) {
+        console.log(e)
+        await validateExpiredToken(req, res)
+          if(res.headersSent) return
+    }
+}
+
 
 export const getTransferencesByUser = async (req, res = response)=>{
     try {
