@@ -1,27 +1,52 @@
 import { Router } from "express";
-import { listDataUser, updateDatauser, updatePassword } from "./userController.js";
+import { listDataUser, updateDatauser, updatePassword, listUsersPending, activeUsers, deleteRegisterUser, editBalanceUser } from "./userController.js";
 import { passwordValidatorMiddleware } from "../middlewares/validatorPasswords.js";
-import { valueJWT } from "../middlewares/valueJWT.js"
+import { validatorListDataUser, validatorUpdatePassword, validatorUpdateUser } from "../middlewares/validatorUser.js";
+import { validatorActiveUser, validatorDeleteRegisterUser, validatorListPending, validatorUpdateBalanceUser } from "../middlewares/validatorAdmin.js";
+
 
 const router = Router()
 
 router.get(
     "/personalData",
-    valueJWT,
+    validatorListDataUser,
     listDataUser
 )
 
 router.put(
     "/updateData",
-    valueJWT,
+    validatorUpdateUser,
     updateDatauser
 )
 
 router.put(
     "/updatePassword/:id",
-    valueJWT,
     passwordValidatorMiddleware,
     updatePassword
 )
+//////////////////////////////////////////////////////////////////////////////////////// ADMINISTRADOR //////////////////////////////////////////////////////////////////////////////
 
+router.get(
+    "/pending",
+    validatorListPending,
+    listUsersPending
+);
+
+router.post(
+    "/:id/activate",
+    validatorActiveUser,
+    activeUsers
+);
+
+router.delete(
+    "/:id/delete",
+    validatorDeleteRegisterUser,
+    deleteRegisterUser
+);
+
+router.put(
+    "/:id/edit-balance",
+    validatorUpdateBalanceUser,
+    editBalanceUser
+);
 export default router
