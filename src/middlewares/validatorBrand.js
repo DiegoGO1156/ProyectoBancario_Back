@@ -1,7 +1,5 @@
 import { body, param } from "express-validator";
 import { validarCampos } from "./validarCampos.js"
-import { noExistBrandById } from "../helpers/db-Validator.js";
-import { valueJWT } from "./valueJWT.js";
 import { noExistBrandById, existBrandName } from "../helpers/db-Validator.js";
 import { valueJWT } from "./valueJWT.js";
 import { validateRole } from "./validateRole.js";

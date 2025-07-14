@@ -11,6 +11,7 @@ import productRoutes from "../src/products/product.routes.js";
 import serviceRoutes from "../src/services/service.routes.js";
 import userRoutes from "../src/users/userRoutes.js"
 import transferRoutes from "../src/transfers/transfer.routes.js";
+import currencyRoutes from "../src/currency/cur.router.js"
 
 import User from "../src/users/user.model.js";
 
@@ -29,6 +30,7 @@ const routes = (app) =>{
     app.use("/Valmeria_App/V1/Services", serviceRoutes);
     app.use("/Valmeria_App/V1/User", userRoutes);
     app.use("/Valmeria_App/V1/transfers", transferRoutes)
+    app.use("/Valmeria_App/V1/currency", currencyRoutes)
 }
 
 const conectDB = async() =>{
