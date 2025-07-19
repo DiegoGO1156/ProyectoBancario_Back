@@ -125,6 +125,13 @@ export const noExistUserById = async (id = ' ') => {
     }
 }
 
+export const userDisabledId = async (id = "") =>{
+    const findUserDisabled = await User.findById(id)
+    if(findUserDisabled.statusAccount === "Pending" && findUserDisabled.verification === false){
+        throw new Error(`El usuario ${findUserDisabled.name}que intenta Deshabilitar ya se encuentra sin acceso`)
+    }
+}
+
 export const notExistUser = async (email = ' ') => {
 
     const existEmail = await User.findOne({email})

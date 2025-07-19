@@ -1,7 +1,7 @@
 import { body, param } from "express-validator";
 import { validarCampos } from "./validarCampos.js";
 import { valueJWT } from "./valueJWT.js";
-import { noExistUserById, minincome } from "../helpers/db-Validator.js";
+import { noExistUserById, minincome, userDisabledId } from "../helpers/db-Validator.js";
 import { validateRole } from "./validateRole.js";
 
 
@@ -33,6 +33,15 @@ export const validatorDeleteRegisterUser = [
     param("id", "The ID is required").notEmpty(),
     param("id", "Enter a valid ID").isMongoId(),
     param("id").custom(noExistUserById),
+    validarCampos
+]
+
+export const validatorUpdateStatusUser = [
+    valueJWT,
+    validateRole("ADMIN"),
+    param("id", "The ID is required").notEmpty(),
+    param("id", "Enter a valid ID").isMongoId(),
+    param("id").custom(userDisabledId),
     validarCampos
 ]
 

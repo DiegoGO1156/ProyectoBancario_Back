@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { listDataUser, updateDatauser, updatePassword, listUsersPending, activeUsers, deleteRegisterUser, editBalanceUser } from "./userController.js";
+import { listDataUser, updateDatauser, updatePassword, listUsersPending, activeUsers, deleteRegisterUser, editBalanceUser, editStatusUser } from "./userController.js";
 import { passwordValidatorMiddleware } from "../middlewares/validatorPasswords.js";
 import { validatorListDataUser, validatorUpdatePassword, validatorUpdateUser } from "../middlewares/validatorUser.js";
-import { validatorActiveUser, validatorDeleteRegisterUser, validatorListPending, validatorUpdateBalanceUser } from "../middlewares/validatorAdmin.js";
+import { validatorActiveUser, validatorDeleteRegisterUser, validatorListPending, validatorUpdateBalanceUser, validatorUpdateStatusUser } from "../middlewares/validatorAdmin.js";
 
 
 const router = Router()
@@ -49,4 +49,10 @@ router.put(
     validatorUpdateBalanceUser,
     editBalanceUser
 );
+
+router.put(
+    "/changeStatusUser/:id",
+    validatorUpdateStatusUser,
+    editStatusUser
+)
 export default router
