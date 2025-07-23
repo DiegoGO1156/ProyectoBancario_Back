@@ -96,7 +96,23 @@ export const updatePassword = async(req, res) =>{
 
 export const listUsersPending = async (req, res) => {
     try {
-        const users = await User.find({ status: "Pending" });
+        const users = await User.find({ statusAccount: "Pending" });
+        return res.status(200).json({
+            message: "Pending users fetched successfully",
+            users
+        });
+    } catch (err) {
+        console.error("Error fetching pending users:", err);
+        return res.status(500).json({ 
+            message: "Internal server error",
+            error: err.message 
+        });
+    }
+}
+
+export const listUsersActiveUsers = async (req, res) => {
+    try {
+        const users = await User.find({ statusAccount: "Active" });
         return res.status(200).json({
             message: "Pending users fetched successfully",
             users

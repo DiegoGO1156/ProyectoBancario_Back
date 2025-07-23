@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { listDataUser, updateDatauser, updatePassword, listUsersPending, activeUsers, deleteRegisterUser, editBalanceUser, editStatusUser } from "./userController.js";
+import { listDataUser, updateDatauser, updatePassword, listUsersPending, activeUsers, deleteRegisterUser, editBalanceUser, editStatusUser, listUsersActiveUsers } from "./userController.js";
 import { passwordValidatorMiddleware } from "../middlewares/validatorPasswords.js";
 import { validatorListDataUser, validatorUpdatePassword, validatorUpdateUser } from "../middlewares/validatorUser.js";
 import { validatorActiveUser, validatorDeleteRegisterUser, validatorListPending, validatorUpdateBalanceUser, validatorUpdateStatusUser } from "../middlewares/validatorAdmin.js";
@@ -30,6 +30,12 @@ router.get(
     "/pending",
     validatorListPending,
     listUsersPending
+);
+
+router.get(
+    "/active",
+    validatorListPending,
+    listUsersActiveUsers
 );
 
 router.post(
