@@ -1,5 +1,5 @@
 import { response, request } from "express"
-import Transfer from "./Transfer.model.js"
+import Transfer from "./transfer.model.js"
 import User from "../users/user.model.js"
 import jwt from "jsonwebtoken"
 import { validateEmailToken, validateEmailTokenVerify, validateExpiredToken, validateToken } from "../middlewares/validateCommonStuff.js"
