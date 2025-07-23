@@ -113,7 +113,7 @@ export const listUsersPending = async (req, res) => {
 export const activeUsers = async (req, res) => {
     try {
         const {id} = req.params;
-        const user = await User.findByIdAndUpdate(id, { status: "Active" }, { new: true });
+        const user = await User.findByIdAndUpdate(id, { statusAccount: "Active" }, { new: true });
         return res.status(200).json({
             message: "User activated successfully",
             user

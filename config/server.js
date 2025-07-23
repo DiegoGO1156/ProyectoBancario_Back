@@ -17,7 +17,7 @@ import User from "../src/users/user.model.js";
 
 const middlewares = (app) =>{
     app.use(express.urlencoded({extended: false}))
-    app.use(cors())
+    app.use(cors({origin: "https://valmeriaappgrupo2in6cm.vercel.app"}))
     app.use(express.json())
     app.use(helmet())
     app.use(morgan("dev"))

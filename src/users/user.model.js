@@ -40,7 +40,7 @@ const userModel = new Schema({
     },
     income:{
         type: Number,
-        requirede: true
+        required: true
     },
     role:{
         type: String,
@@ -60,9 +60,18 @@ const userModel = new Schema({
         type: String,
         default: 'GTQ'
     },
-    userList:{
-        type: []
-    },
+    userList: [
+        {
+            number: {
+            type: String,
+            required: true
+            },
+            alias: {
+            type: String,
+            required: true
+            }
+        }
+    ],
     status:{
         type: Boolean,
         default: true

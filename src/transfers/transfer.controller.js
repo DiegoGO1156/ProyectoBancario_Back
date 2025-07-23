@@ -203,6 +203,33 @@ export const makeAUserFavorite = async (req, res)=>{
   }
 }
 
+export const getFavoriteUsers = async (req, res) => {
+  try {
+    const token = req.header('Authorization');
+
+    if (!token) {
+      return res.status(401).json({ message: "Token requerido" });
+    }
+
+    const { uid } = jwt.verify(token, process.env.SECRETOPRIVATEKEY);
+    const user = await User.findById(uid);
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    return res.status(200).json({
+      favorites: user.userList || []
+    });
+
+  } catch (e) {
+    return res.status(500).json({
+      message: "No se pudieron obtener los usuarios favoritos",
+      error: e.message
+    });
+  }
+};
+
 export const listUserTransfered = async (req, res)=>{
   try {
     const token = await req.header('Authorization')
