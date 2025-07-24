@@ -298,7 +298,7 @@ export const validateVerifyEmail = async (req, res, user, token) => {
           <h1>¡Verificación Exitosa!</h1>
           <p>Tu correo <strong>${email}</strong> ha sido verificado correctamente.</p>
           <p>Ahora puedes acceder a todas las funciones de tu cuenta Valmeria.</p>
-          <a href="${process.env.FRONTEND_URL}/login" class="btn">Iniciar Sesión</a>
+          <a href="https://valmeriaappgrupo2in6cm.vercel.app/auth" class="btn">Iniciar Sesión</a>
           <div class="footer">
             <p>Si no realizaste esta acción, por favor contacta a valmeriaapp@gmail.com</p>
           </div>
