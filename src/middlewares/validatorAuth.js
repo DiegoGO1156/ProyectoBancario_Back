@@ -56,7 +56,7 @@ export const validateRegister = async (req, res, userData) => {
     const token = jwt.sign({ email: data.email.toLowerCase()}, process.env.SECRETOPRIVATEKEY, {
         expiresIn: "1.5m"
     })
-    const verificationLink = `http://localhost:3000/Valmeria_App/V1/Auth/verify?token=${token}`
+    const verificationLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/Auth/verify?token=${token}`
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
