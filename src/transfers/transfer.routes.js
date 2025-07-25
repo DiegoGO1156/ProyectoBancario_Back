@@ -39,6 +39,6 @@ router.get("/get-user-transfered/", listUserTransfered)
 
 router.get('/favorites', getFavoriteUsers);
 
-router.put("/favorite/:number", makeAUserFavorite)
+router.put("/favorite", makeAUserFavorite)
 
 export default router
