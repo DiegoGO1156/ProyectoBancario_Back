@@ -181,6 +181,9 @@ export const payService = async (req, res)=>{
 
 export const makeAUserFavorite = async (req, res)=>{
   try {
+    console.log('BODY RECIBIDO:', req.body);
+    console.log('HEADERS:', req.headers);
+
     const token = await req.header('Authorization')
 
     await validateToken(req, res)
@@ -190,12 +193,19 @@ export const makeAUserFavorite = async (req, res)=>{
 
     const senderUser = await User.findById(uid)
 
-    let userList = senderUser.userList
+    const { number, alias } = req.body;
 
-    await validateMakeAUserFavorite(req, res, senderUser, userList)
-          if(res.headersSent) return
+    senderUser.userList.push({ number, alias });
+
+    await senderUser.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Usuario agregado a favoritos correctamente.",
+    });
           
   } catch (e) {
+    console.error("Error en makeAUserFavorite:", e);
     return res.status(500).json({
         message: "It couldnt turn favorite",
         error: e.message
