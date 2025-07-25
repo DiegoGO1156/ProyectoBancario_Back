@@ -90,9 +90,9 @@ export const validateAddTransfersEmail = async (req, res, senderUser, addresserU
         expiresIn: "1.5m"
       }
     )
-    const denyLink = `http://localhost:3000/Valmeria_App/V1/transfers/deny?tokenEmail=${tokenEmail}`
+    const denyLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/deny?tokenEmail=${tokenEmail}`
     
-    const completeLink = `http://localhost:3000/Valmeria_App/V1/transfers/complete?tokenEmail=${tokenEmail}`
+    const completeLink = `https://proyectobancario-back.onrender.com/V1/transfers/complete?tokenEmail=${tokenEmail}`
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -158,9 +158,9 @@ export const validateAddProductPurchaseEmail = async (req, res, senderUser, prod
         expiresIn: "1.5m"
       }
     )
-    const denyLink = `http://localhost:3000/Valmeria_App/V1/transfers/denyPurchase?tokenEmail=${tokenEmail}`
+    const denyLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/denyPurchase?tokenEmail=${tokenEmail}`
     
-    const completeLink = `http://localhost:3000/Valmeria_App/V1/transfers/completePurchase?tokenEmail=${tokenEmail}`
+    const completeLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/completePurchase?tokenEmail=${tokenEmail}`
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -238,9 +238,9 @@ export const validateAddPaymentServiceEmail = async (req, res, senderUser, servi
         expiresIn: "1.5m"
       }
     )
-    const denyLink = `http://localhost:3000/Valmeria_App/V1/transfers/denyPayment?tokenEmail=${tokenEmail}`
+    const denyLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/denyPayment?tokenEmail=${tokenEmail}`
     
-    const completeLink = `http://localhost:3000/Valmeria_App/V1/transfers/completePayment?tokenEmail=${tokenEmail}`
+    const completeLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/completePayment?tokenEmail=${tokenEmail}`
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
