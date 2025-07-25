@@ -92,7 +92,7 @@ export const validateAddTransfersEmail = async (req, res, senderUser, addresserU
     )
     const denyLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/deny?tokenEmail=${tokenEmail}`
     
-    const completeLink = `https://proyectobancario-back.onrender.com/V1/transfers/complete?tokenEmail=${tokenEmail}`
+    const completeLink = `https://proyectobancario-back.onrender.com/Valmeria_App/V1/transfers/complete?tokenEmail=${tokenEmail}`
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
